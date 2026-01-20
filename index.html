@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Save Manager</title>
+<style>
+body{background:#0b1c3d;font-family:Arial;color:white;text-align:center}
+.box{max-width:420px;margin:40px auto;padding:25px;background:#00000066;border-radius:15px}
+button,input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:none}
+button{font-size:15px;cursor:pointer}
+.upload{background:#1e90ff;color:white}
+.save{background:#00c853;color:white}
+.ps{background:#00bfa5;color:white}
+.del{background:#ff5252;color:white}
+.delall{background:#b71c1c;color:white}
+</style>
+<script>
+function deleteAll(){
+  if(confirm("DELETE ALL FILES?\nThis cannot be undone!")){
+    fetch('/deleteAll',{method:'POST'})
+      .then(()=>alert("All files deleted"));
+  }
+}
+</script>
+</head>
+<body>
+<div class="box">
+<h2>💾 Save Manager</h2>
+
+<form method="POST" action="/uploadSave" enctype="multipart/form-data">
+<input type="file" name="file" accept=".sav" required>
+<button class="upload">Upload Save</button>
+</form>
+
+<form method="POST" action="/uploadPS" enctype="multipart/form-data">
+<input type="file" name="file" accept=".ps1" required>
+<button class="ps">Upload PS Script</button>
+</form>
+
+<button class="save" onclick="location.href='/downloadSave'">Download Save</button>
+<button class="ps" onclick="location.href='/downloadPS'">Download PS Script</button>
+
+<form method="POST" action="/deleteSave">
+<button class="del">Delete Save</button>
+</form>
+
+<button class="delall" onclick="deleteAll()">Delete ALL</button>
+
+</div>
+</body></html>
